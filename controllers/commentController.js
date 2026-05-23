@@ -53,3 +53,35 @@ exports.getComments = async (req, res) => {
     res.status(500).json({ msg: "Error", error: err.message });
   }
 };
+
+
+exports.editComment = async (req, res) => {
+  try {
+    const { postid, commentid } = req.params;
+    const { text } = req.body;
+
+    const comment = await Comment.findOneAndUpdate(
+      { _id: postid },
+      { $set: { text } },
+      { new: true }
+    );
+console.log(commentid);
+
+    if (!comment) {
+      return res.status(404).json({
+        msg: "Comment not found",
+      });
+    }
+
+    return res.status(200).json({
+      msg: "Comment updated successfully",
+      comment,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      msg: "Error",
+      error: err.message,
+    });
+  }
+};

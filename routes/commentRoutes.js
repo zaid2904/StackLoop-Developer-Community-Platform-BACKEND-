@@ -10,4 +10,7 @@ router.post("/comment/:postid", jwtmiddleware, commentController.addComment);
 // ✅ Get comments of a particular post
 router.get("/comment/:postid", commentController.getComments);
 
+// update comment 
+router.put("/comment/:postid", commentController.editComment)
+
 module.exports = router;
