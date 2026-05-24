@@ -6,7 +6,10 @@ const dotenv=require("dotenv")
 dotenv.config()
 const PORT = process.env.PORT ;
 // Middleware
-app.use(cors());    
+app.use(cors({
+     origin: "https://stack-loop-developer-social-communi.vercel.app/",
+     credentials: true, 
+}));    
 // db connection 
 const  connectDb=require("./config/db.js")
 connectDb() 
