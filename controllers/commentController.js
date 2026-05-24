@@ -85,3 +85,33 @@ console.log(commentid);
     });
   }
 };
+
+
+exports.deleteCommet = async (req, res) => {
+  try {
+    const { commentid } = req.params;
+
+    const comment = await Comment.findByIdAndDelete(
+      { _id: commentid },
+      { new: true }
+    );
+console.log(commentid);
+
+    if (!comment) {
+      return res.status(404).json({
+        msg: "Comment not found",
+      });
+    }
+
+    return res.status(200).json({
+      msg: "Comment updated successfully",
+      comment,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      msg: "Error",
+      error: err.message,
+    });
+  }
+};
